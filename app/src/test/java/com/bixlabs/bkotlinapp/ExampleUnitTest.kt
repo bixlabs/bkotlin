@@ -1,4 +1,4 @@
-package com.bixlabs.bkotlin
+package com.bixlabs.bkotlinapp
 
 import org.junit.Test
 
