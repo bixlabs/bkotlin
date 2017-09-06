@@ -78,4 +78,4 @@ dependencies {
 
 }
 
-apply from: rootProject.file('jcenter.gradle')
+apply from: rootProject.file('bintray.gradle')
