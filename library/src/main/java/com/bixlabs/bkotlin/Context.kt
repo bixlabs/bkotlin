@@ -1,25 +1,34 @@
 package com.bixlabs.bkotlin
 
 import android.content.Context
+import android.support.annotation.StringRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 
 /**
- * Display a Toast Message
- *
- * @param[message] to display
- * @param[length] Length of display time of Toast, Default is Toast.LENGTH_LONG
+ * Display the simple Toast message with the [Toast.LENGTH_SHORT] duration.
+ * @param message the message text.
  */
-fun Context.toast(message: String, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, message, length).show()
+fun Context.shortToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
 /**
- * Display a Toast Message
- *
- * @param[message] to display
- * @param[length] Length of display time of Toast, Default is Toast.LENGTH_LONG
+ * Display the simple Toast message with the [Toast.LENGTH_SHORT] duration.
+ * @param message the message text resource.
  */
-fun Context.toast(message: Int, length: Int = Toast.LENGTH_LONG) = Toast.makeText(this, message, length).show()
+fun Context.shortToast(@StringRes message: Int) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+/**
+ * Display the simple Toast message with the [Toast.LENGTH_LONG] duration.
+ * @param message the message text.
+ */
+fun Context.longToast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+/**
+ * Display the simple Toast message with the [Toast.LENGTH_LONG] duration.
+ * @param message the message text resource.
+ */
+fun Context.longToast(@StringRes message: Int) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 
 /**
  * Shortcut for LayoutInflater.from(this)
@@ -36,3 +45,4 @@ fun Context.getStatusBarHeight(): Int {
     val resourceId = this.resources.getIdentifier("status_bar_height", "dimen", "android")
     return this.resources.getDimensionPixelSize(resourceId)
 }
+

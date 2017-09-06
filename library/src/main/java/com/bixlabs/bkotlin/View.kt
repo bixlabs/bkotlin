@@ -2,11 +2,13 @@ package com.bixlabs.bkotlin
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Rect
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
+
 
 /**
  * Gives focus to the passed view once the view has been completely inflated
@@ -115,3 +117,44 @@ fun Context.showViews(vararg views: View) = views.forEach { it.visibility = View
  */
 val ViewGroup.children: List<View>
     get() = (0 until childCount).map { getChildAt(it) }
+
+/**
+ * Apply [f] to this [View] and to all of its children recursively.
+ *
+ * @return the receiver.
+ */
+fun <T : View> T.applyRecursively(f: (View) -> Unit): T {
+    applyRecursively(this, f)
+    return this
+}
+
+fun View.locateInScreen(): Rect? {
+    val loc_int = IntArray(2)
+
+    val attempt = attempt {
+        this@locateInScreen.getLocationOnScreen(loc_int)
+    }
+
+    if (attempt.isError) return null
+
+    return Rect().apply {
+        left = loc_int[0]
+        top = loc_int[1]
+        right = left + this@locateInScreen.width
+        bottom = top + this@locateInScreen.height
+    }
+}
+
+/* ********************************************
+ *               Private methods              *
+ ******************************************** */
+
+fun applyRecursively(v: View, style: (View) -> Unit) {
+    style(v)
+    if (v is ViewGroup) {
+        val maxIndex = v.childCount - 1
+        for (i in 0 .. maxIndex) {
+            v.getChildAt(i)?.let { applyRecursively(it, style) }
+        }
+    }
+}
