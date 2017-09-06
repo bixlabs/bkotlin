@@ -48,9 +48,9 @@ fun View.hide() {
 }
 
 /**
- * Toggle's view's visibility. If View is visible, then sets to gone. Else sets Visible
+ * Toggle's view's visibility. If View is visible, then sets to GONE. Else sets VISIBLE
  */
-fun View.toggle() {
+fun View.toggleVisibility() {
     visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
 }
 

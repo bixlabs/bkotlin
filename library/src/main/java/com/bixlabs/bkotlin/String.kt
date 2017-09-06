@@ -1,5 +1,18 @@
 package com.bixlabs.bkotlin
 
-fun String.Companion.EMPTY (): String = ""
+import android.util.Patterns
 
-fun String.isNotBlackOrEmpty(): Boolean = !this.isEmpty() || !all { it.isWhitespace() }
+/**
+ * Short for String foo = ""
+ */
+fun String.Companion.EMPTY(): String = ""
+
+/**
+ * Returns true if this string is not empty nor composed by whitespaces
+ */
+fun String.isNotBlankOrEmpty(): Boolean = !this.isEmpty() || !all { it.isWhitespace() }
+
+/**
+ * Returns true if this string is a valid URL
+ */
+fun String.isValidUrl() : Boolean = Patterns.WEB_URL.matcher(this.toLowerCase()).matches()
