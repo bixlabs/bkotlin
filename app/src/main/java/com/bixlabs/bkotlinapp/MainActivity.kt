@@ -2,6 +2,7 @@ package com.bixlabs.bkotlinapp
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.bixlabs.bkotlin.TAG
@@ -27,8 +28,11 @@ class MainActivity : AppCompatActivity() {
 //            })
 //        })
 
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("Great", true)
+
         btn_test.setOnClickListener {
             val a = 1504622447790L - (60000L * 3888000)
+
             text_test.text = a.toTimeAgo()
 
             val mediaPicker = BixMediaPicker()

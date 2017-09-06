@@ -5,8 +5,11 @@ import android.text.TextWatcher
 import android.widget.EditText
 
 /**
- * Accepts 3 text watcher methods with default empty implementation.
- * Returns the TextWatcher added to EditText
+ * Accepts 3 text watcher methods with a default empty implementation.
+ * This allows for a cleaner implementation of a `TextWatcher` with only the needed
+ * parts of if being implemented.
+ *
+ * @return The `TextWatcher` being added to EditText
  */
 fun EditText.addTextWatcher(afterTextChanged: (s: Editable?) -> Unit = { _ -> },
                             beforeTextChanged: (s: CharSequence?, start: Int, count: Int, after: Int) -> Unit = { _, _, _, _ -> },

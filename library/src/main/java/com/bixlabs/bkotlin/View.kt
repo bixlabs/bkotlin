@@ -1,26 +1,42 @@
 package com.bixlabs.bkotlin
 
 import android.app.Activity
+import android.content.Context
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 
+/**
+ * Gives focus to the passed view once the view has been completely inflated
+ */
 fun Activity.setFocusToView(view: View) {
     val handler = Handler(this.mainLooper)
     handler.post { view.requestFocus() }
 }
 
+/**
+ * Gives focus to the passed view once the view has been completely inflated
+ */
 fun Fragment.setFocusToView(view: View) {
     val handler = Handler(this.activity.mainLooper)
     handler.post { view.requestFocus() }
 }
 
+/**
+ * Gives focus to the passed view once the view has been completely
+ * inflated using `view.requestFocusFromTouch`
+ */
 fun Activity.setTouchFocusToView(view: View) {
     val handler = Handler(this.mainLooper)
     handler.post { view.requestFocusFromTouch() }
 }
 
+/**
+ * Gives focus to the passed view once the view has been completely
+ * inflated using `view.requestFocusFromTouch`
+ */
 fun Fragment.setTouchFocusToView(view: View) {
     val handler = Handler(this.activity.mainLooper)
     handler.post { view.requestFocusFromTouch() }
@@ -83,3 +99,19 @@ fun View.isHidden(): Boolean = visibility == View.INVISIBLE
  * True if the view is currently gone (View.GONE), false otherwise
  */
 fun View.isGone(): Boolean = visibility == View.GONE
+
+/**
+ * Hides all the views passed as argument(s)
+ */
+fun Context.hideViews(vararg views: View) = views.forEach { it.visibility = View.GONE }
+
+/**
+ * Shows all the views passed as argument(s)
+ */
+fun Context.showViews(vararg views: View) = views.forEach { it.visibility = View.VISIBLE }
+
+/**
+ * Get all child views from a ViewGroup
+ */
+val ViewGroup.children: List<View>
+    get() = (0 until childCount).map { getChildAt(it) }

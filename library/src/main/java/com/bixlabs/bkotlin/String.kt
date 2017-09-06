@@ -3,7 +3,7 @@ package com.bixlabs.bkotlin
 import android.util.Patterns
 
 /**
- * Short for String foo = ""
+ * Short for `foo: String = ""`
  */
 fun String.Companion.EMPTY(): String = ""
 

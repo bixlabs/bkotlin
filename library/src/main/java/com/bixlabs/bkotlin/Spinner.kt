@@ -7,11 +7,13 @@ import android.widget.Spinner
 import android.widget.SpinnerAdapter
 
 /**
- * Callback when spinner item is selected
+ * Callback executed when a spinner item is selected
+ * @return Am implemented `OnItemSelectedListener` interface in case the same is needed for any other operation.
  */
 fun Spinner.onItemSelected(
         onNothingSelect: (parent: AdapterView<*>?) -> Unit = { _ -> },
-        onItemSelect: (parent: AdapterView<*>?, view: View?, position: Int?, id: Long?) -> Unit = { _, _, _, _ -> }): AdapterView.OnItemSelectedListener {
+        onItemSelect: (parent: AdapterView<*>?, view: View?, position: Int?, id: Long?) -> Unit = { _, _, _, _ -> }):
+        AdapterView.OnItemSelectedListener {
 
     val itemSelected = object : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -29,7 +31,9 @@ fun Spinner.onItemSelected(
 }
 
 /**
- * Sets ArrayList of objects with an additional string conversion method for objects
+ * Sets an ArrayList of objects with an additional (but optional and which defaults to `object.toString()`)
+ * string conversion method for the same.
+ * @return A new `ArrayAdapter` already containing the items received by this method
  */
 fun <T> Spinner.setItems(
         items: ArrayList<T>?,

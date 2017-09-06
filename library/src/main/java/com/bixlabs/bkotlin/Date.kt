@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit
  * Parse a date from String
  *
  * @param[format] optional, Date format. defaults to yyyy-MM-dd HH:mm:ss (ex: 2017-06-02 19:20:00)
- * @return Date object, Nullable
+ * @return A Date object (Nullable)
  */
 fun Date.parse(date: String, format: String? = "yyyy-MM-dd HH:mm:ss"): Date? = try {
-    SimpleDateFormat(format, Locale.getDefault()).parse(date)
+    SimpleDateFormat(format, Locale.US).parse(date)
 } catch (e: Exception) {
     null
 }
@@ -21,18 +21,20 @@ fun Date.parse(date: String, format: String? = "yyyy-MM-dd HH:mm:ss"): Date? = t
  * Formats a date using SimpleDateFormat to the received string format
  *
  * @param[format] optional. default is yyyy-MM-dd HH:mm:ss (2017-06-02 19:20:00)
- * @return Formatted Date as String
+ * @return The Formatted Date as `String`
  */
 fun Date.toFormattedString(format: String? = "yyyy-MM-dd HH:mm:ss"): String =
-        SimpleDateFormat(format, Locale.getDefault()).format(this)
+        SimpleDateFormat(format, Locale.US).format(this)
 
 /**
  * Formats a date to a human redable duration string such as "1 min ago"
+ * @return The formatted date as `String`
  */
 fun Date.toStringDuration(): String = this.time.toTimeAgo()
 
 /**
  * Given a date in millis since EPOCH, formats it to a human redable duration string such as "1 min ago"
+ * @return The formatted date as `String`
  */
 fun Long.toTimeAgo(): String {
     val date = Date(this)

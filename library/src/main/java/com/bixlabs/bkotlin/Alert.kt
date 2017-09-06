@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 
 /**
- * Display AlertDialog instantly
+ * Display an AlertDialog
  *
  * @param[title] optional, title
  * @param[message] to display
@@ -15,7 +15,7 @@ import android.text.TextUtils
  * @param[cancelable] able to cancel
  * @param[callback] callback of click ok button
  */
-fun Context.alert(title: String? = "", message: String, positiveButton: String? = null,
+fun Context.displayAlertDialog(title: String? = "", message: String, positiveButton: String? = null,
                   cancelable: Boolean = true, callback: DialogInterface.() -> Unit = {}) =
         AlertDialog.Builder(this).apply {
             if (!TextUtils.isEmpty(title))
@@ -37,7 +37,7 @@ fun Context.alert(title: String? = "", message: String, positiveButton: String? 
  * @param[callback] callback which includes the option selected by the user. True if the user pressed the possitive button,
  *                  false otherwise.
  */
-fun Context.confirm(title: String? = "", message: String, positiveButton: String? = null, negativeButton: String? = null,
+fun Context.displayConfirmDialog(title: String? = "", message: String, positiveButton: String? = null, negativeButton: String? = null,
                     cancelable: Boolean = true, callback: DialogInterface.(result: Boolean) -> Unit) =
         AlertDialog.Builder(this).apply {
             if (!TextUtils.isEmpty(title))
@@ -54,9 +54,9 @@ fun Context.confirm(title: String? = "", message: String, positiveButton: String
  *
  * @param[title] optional, title
  * @param[message] message
- * @return DialogInterface
+ * @return DialogInterface which allows the dismissal of the ProgressDialog
  */
-fun Context.progress(title: String? = null, message: String): DialogInterface {
+fun Context.displayProgressDialog(title: String? = null, message: String): DialogInterface {
     return ProgressDialog(this).apply {
         setProgressStyle(ProgressDialog.STYLE_SPINNER)
         setMessage(message)

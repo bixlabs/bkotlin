@@ -22,6 +22,21 @@ fun Context.reboot(restartIntent: Intent = this.packageManager.getLaunchIntentFo
     }
 }
 
+/**
+ * Get the application version code
+ */
+fun Context.getVersionCode(): Int = packageManager.getPackageInfo(packageName, 0).versionCode
+
+/**
+ * Get the application version name
+ */
+fun Context.getVersionName(): String = packageManager.getPackageInfo(packageName, 0).versionName
+
+
+/* ********************************************
+ *               Private methods              *
+ ******************************************** */
+
 private fun finishAffinity(activity: Activity) {
     activity.setResult(Activity.RESULT_CANCELED)
     when {
