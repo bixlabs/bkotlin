@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka-android'
 
 ext {
-    bintrayRepo = 'maven'
+    bintrayRepo = 'bixlabs'
     bintrayName = 'BKotlin'
 
     publishedGroupId = 'com.bixlabs.bkotlin'
@@ -50,7 +50,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
