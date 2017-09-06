@@ -26,11 +26,6 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-//dokka {
-//    outputFormat = 'javadoc'
-//    outputDirectory = "$rootDir/doc"
-//}
-
 task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     outputFormat = 'javadoc'
     outputDirectory = "$buildDir/javadoc"

@@ -1,8 +1,8 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-group = publishedGroupId                               // Maven Group ID for the artifact
-version = libraryVersion
+group = publishedGroupId // Maven Group ID for the artifact
+version = libraryVersion // Library version
 
 install {
     repositories.mavenInstaller {
