@@ -31,10 +31,10 @@ task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     outputDirectory = "$buildDir/javadoc"
 }
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-    classifier = 'javadoc'
-    from "$buildDir/javadoc"
-}
+//task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+//    classifier = 'javadoc'
+//    from "$buildDir/javadoc"
+//}
 
 android {
     compileSdkVersion 26
