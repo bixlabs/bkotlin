@@ -74,7 +74,7 @@ bintray {
     publish = true
 
     pkg {
-        repo = 'maven'
+        repo = 'bixlabs'
         name = PROJ_NAME
         desc = PROJ_DESCRIPTION
         websiteUrl = PROJ_WEBSITEURL
@@ -97,7 +97,7 @@ artifactory {
         repository {
             repoKey = 'oss-snapshot-local' //The Artifactory repository key to publish to
             username = bintray.user
-            password = bintray.apikey
+            password = bintray.key
         }
         defaults {
             publications('mavenKotlin')
