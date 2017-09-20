@@ -6,8 +6,10 @@ import android.util.SparseArray
 import android.util.SparseBooleanArray
 import android.util.SparseIntArray
 import java.util.*
-import java.util.List
+import kotlin.collections.HashMap
 
+
+private val random = Random()
 
 /**
  * Iterate the receiver [List] backwards.
@@ -87,3 +89,44 @@ fun <F, S> android.util.Pair<F, S>.toKotlinPair(): Pair<F, S> {
 fun <F, S> Pair<F, S>.toAndroidPair(): android.util.Pair<F, S> {
     return android.util.Pair(first, second)
 }
+
+fun <E> Collection<E>?.isNullOrEmpty(): Boolean = this == null || this.isEmpty()
+
+fun <E> Collection<E>?.isNotNullOrEmpty() = !isNullOrEmpty()
+
+fun <E>List<E>?.isNullOrEmpty() = this == null || this.isEmpty()
+
+fun <E>List<E>?.isNotNullOrEmpty(): Boolean = !isNullOrEmpty()
+
+/**
+ * returns a random element from the list
+ */
+fun <E>List<E>.random() = this[random.nextInt(size)]
+
+/**
+ * returns a map of page number and the amount of items given
+ */
+operator fun <E>List<E>.div(amount: Int): HashMap<Int, kotlin.collections.List<E>> {
+    val map = HashMap<Int, kotlin.collections.List<E>>()
+    var startIndexOfCattedList = 0
+    var page = 0
+
+    for (indexOfList in 0 until this.size) {
+        if ((indexOfList + 1) % amount == 0) {
+
+            if (startIndexOfCattedList == 0) {
+                map.put(page++, subList(startIndexOfCattedList, indexOfList + 1))
+            } else {
+                map.put(page++, subList(startIndexOfCattedList, indexOfList))
+            }
+
+            startIndexOfCattedList = indexOfList
+        }
+    }
+
+    return map
+}
+
+infix fun <E> ArrayList<E>.addIfNotExist(obj: E) = if (!contains(obj)) add(obj) else false
+
+infix fun <E> ArrayList<E>.removeIfExist(obj: E) = if (contains(obj)) remove(obj) else false
