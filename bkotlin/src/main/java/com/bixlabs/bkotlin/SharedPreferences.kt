@@ -11,30 +11,21 @@ object GlobalSharedPreferences  {
     private var initialized = false
 
     /**
-     * Initializes the GlobalSharedPreferences extension. This method must be called in your App class
-     * and passed the app context in order to prevent memory leaks.
-     *
-     * @param application Global context (applicationContext) in order to use everywhere
+     * @param application Global context in order use everywhere
      *      without the need for context every time
-     *
-     * @param sharedPreferencesName custom name for the SharedPreferences if needed. Defaults to "DefaultSharedPreferences"
-     *
+     * @param sharedPreferencesName custom name for SharedPreferences
      * @return instance of the GlobalSharedPreferences
      */
     fun initialize(application: Application, sharedPreferencesName: String = "DefaultSharedPreferences"):
             GlobalSharedPreferences {
         sharedPreferences = application.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
-        initialized = true
+            initialized = true
         return this
     }
 
-
-    //region editor
     @SuppressLint("CommitPrefEdits")
     private fun edit() = requiredOrThrow(sharedPreferences.edit())
-    //endregion editor
 
-    //region get
     fun getAll(): Map<String, *> = requiredOrThrow(sharedPreferences.all)
 
     fun getInt(key: String, defaultValue: Int) =
@@ -73,60 +64,41 @@ object GlobalSharedPreferences  {
     infix fun String.forString(defaultValue: String) : String =
             requiredOrThrow(sharedPreferences.getString(this, defaultValue))
 
-    //endregion get
-
-    //region contains
     operator fun contains(key: String) = requiredOrThrow(sharedPreferences.contains(key))
-    //endregion contains
 
-    //region put
-    fun put(key: String, value: String): GlobalSharedPreferences {
-        edit().putString(key, value)
-        return this
-    }
+    fun put(key: String, value: String) = also { edit().putString(key, value) }
 
-    fun put(key: String, value: Int): GlobalSharedPreferences {
-        edit().putInt(key, value)
-        return this
-    }
+    fun put(key: String, value: Int) = also { edit().putInt(key, value) }
 
-    fun put(key: String, value: Long): GlobalSharedPreferences {
-        edit().putLong(key, value)
-        return this
-    }
+    fun put(key: String, value: Long) = also { edit().putLong(key, value) }
 
-    fun put(key: String, value: Boolean): GlobalSharedPreferences {
-        edit().putBoolean(key, value)
-        return this
-    }
+    fun put(key: String, value: Boolean) = also { edit().putBoolean(key, value) }
 
-    fun put(key: String, value: Float): GlobalSharedPreferences {
-        edit().putFloat(key, value)
-        return this
-    }
+    fun put(key: String, value: Float) = also { edit().putFloat(key, value) }
 
-    fun put(key: String, value: Set<String>): GlobalSharedPreferences {
-        edit().putStringSet(key, value)
-        return this
-    }
+    fun put(key: String, value: Set<String>) = also { edit().putStringSet(key, value) }
 
     infix fun String.put(value: Any) {
-        when(value) {
-            is String ->
-                put(this, value)
-            is Int ->
-                put(this, value)
-            is Long ->
-                put(this, value)
-            is Boolean ->
-                put(this, value)
-            is Float ->
-                put(this, value)
-            is Set<*> -> {
-                put(this, value.map { it.toString() }.toSet())
+        also {
+            when (value) {
+                is String ->
+                    put(this, value)
+                is Int ->
+                    put(this, value)
+                is Long ->
+                    put(this, value)
+                is Boolean ->
+                    put(this, value)
+                is Float ->
+                    put(this, value)
+                is Set<*> -> {
+                    put(this, value.map { it.toString() }.toSet())
+                }
             }
         }
     }
+
+    fun remove(key: String) = also { edit().remove(key) }
 
     operator fun String.plusAssign(value: Any) = this.put(value)
 
@@ -136,22 +108,12 @@ object GlobalSharedPreferences  {
     operator fun plus(keyValuePair: Pair<String, Any>) =
             keyValuePair.first.put(keyValuePair.second)
 
-    //endregion put
-
-    //region remove
-    fun remove(key: String): GlobalSharedPreferences {
-        edit().remove(key)
-        return this
-    }
-
     operator fun minus(key: String) = remove(key)
-    //endregion remove
 
-    //region commit/apply
+
     fun commit() = edit().commit()
 
     fun apply() = edit().apply()
-    //endregion commit/apply
 
     /**
      * @param returnIfInitialized object to be returned if class is initialized
@@ -167,7 +129,8 @@ object GlobalSharedPreferences  {
 
 
 inline fun pref(sharedPreferences: GlobalSharedPreferences.() -> Unit) = with(GlobalSharedPreferences) {
-    sharedPreferences()
-    apply()
-    this
+    also {
+        sharedPreferences()
+        apply()
+    }
 }
