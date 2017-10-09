@@ -128,7 +128,7 @@ object GlobalSharedPreferences  {
 }
 
 
-inline fun pref(sharedPreferences: GlobalSharedPreferences.() -> Unit) = with(GlobalSharedPreferences) {
+inline fun prefs(sharedPreferences: GlobalSharedPreferences.() -> Unit) = with(GlobalSharedPreferences) {
     also {
         sharedPreferences()
         apply()
