@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 @Suppress("unused")
 object GlobalSharedPreferences  {
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
     private var initialized = false
 
     /**
@@ -16,15 +17,14 @@ object GlobalSharedPreferences  {
      * @param sharedPreferencesName custom name for SharedPreferences
      * @return instance of the GlobalSharedPreferences
      */
+    @SuppressLint("CommitPrefEdits")
     fun initialize(application: Application, sharedPreferencesName: String = "DefaultSharedPreferences"):
             GlobalSharedPreferences {
         sharedPreferences = application.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
-            initialized = true
+        editor = sharedPreferences.edit()
+        initialized = true
         return this
     }
-
-    @SuppressLint("CommitPrefEdits")
-    private fun edit() = requiredOrThrow(sharedPreferences.edit())
 
     fun getAll(): Map<String, *> = requiredOrThrow(sharedPreferences.all)
 
@@ -66,17 +66,17 @@ object GlobalSharedPreferences  {
 
     operator fun contains(key: String) = requiredOrThrow(sharedPreferences.contains(key))
 
-    fun put(key: String, value: String) = also { edit().putString(key, value) }
+    fun put(key: String, value: String) = also { editor.putString(key, value) }
 
-    fun put(key: String, value: Int) = also { edit().putInt(key, value) }
+    fun put(key: String, value: Int) = also { editor.putInt(key, value) }
 
-    fun put(key: String, value: Long) = also { edit().putLong(key, value) }
+    fun put(key: String, value: Long) = also { editor.putLong(key, value) }
 
-    fun put(key: String, value: Boolean) = also { edit().putBoolean(key, value) }
+    fun put(key: String, value: Boolean) = also { editor.putBoolean(key, value) }
 
-    fun put(key: String, value: Float) = also { edit().putFloat(key, value) }
+    fun put(key: String, value: Float) = also { editor.putFloat(key, value) }
 
-    fun put(key: String, value: Set<String>) = also { edit().putStringSet(key, value) }
+    fun put(key: String, value: Set<String>) = also { editor.putStringSet(key, value) }
 
     infix fun String.put(value: Any) {
         also {
@@ -98,7 +98,7 @@ object GlobalSharedPreferences  {
         }
     }
 
-    fun remove(key: String) = also { edit().remove(key) }
+    fun remove(key: String) = also { editor.remove(key) }
 
     operator fun String.plusAssign(value: Any) = this.put(value)
 
@@ -111,9 +111,9 @@ object GlobalSharedPreferences  {
     operator fun minus(key: String) = remove(key)
 
 
-    fun commit() = edit().commit()
+    fun commit() = editor.commit()
 
-    fun apply() = edit().apply()
+    fun apply() = editor.apply()
 
     /**
      * @param returnIfInitialized object to be returned if class is initialized
