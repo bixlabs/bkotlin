@@ -128,6 +128,9 @@ fun <T : View> T.applyRecursively(f: (View) -> Unit): T {
     return this
 }
 
+/**
+ * Locates this view on screen if the same is [View.VISIBLE]
+ */
 fun View.locateInScreen(): Rect? {
     val loc_int = IntArray(2)
 

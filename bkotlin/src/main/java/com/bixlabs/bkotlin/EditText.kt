@@ -32,3 +32,8 @@ fun EditText.addTextWatcher(afterTextChanged: (s: Editable?) -> Unit = { _ -> },
     addTextChangedListener(textWatcher)
     return textWatcher
 }
+
+/**
+ * Get this EditText text as a trimmed [String].
+ */
+fun EditText.textAsTrimmedString(): String = this.text.toString().trim()

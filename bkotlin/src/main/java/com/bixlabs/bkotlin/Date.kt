@@ -30,7 +30,7 @@ fun Date.toFormattedString(format: String? = "yyyy-MM-dd HH:mm:ss"): String =
  * Formats a date to a human redable duration string such as "1 min ago"
  * @return The formatted date as `String`
  */
-fun Date.toStringDuration(): String = this.time.toTimeAgo()
+fun Date.toTimeAgo(): String = this.time.toTimeAgo()
 
 /**
  * Given a date in millis since EPOCH, formats it to a human redable duration string such as "1 min ago"

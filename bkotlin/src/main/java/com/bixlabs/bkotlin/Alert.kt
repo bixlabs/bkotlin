@@ -52,10 +52,12 @@ fun Context.displayConfirmDialog(title: String? = "", message: String, positiveB
 /**
  * Display a ProgressDialog
  *
+ *
  * @param[title] optional, title
  * @param[message] message
  * @return DialogInterface which allows the dismissal of the ProgressDialog
  */
+@Deprecated("Use a progress indicator such as ProgressBar inline inside of an activity rather than using this modal dialog.")
 fun Context.displayProgressDialog(title: String? = null, message: String): DialogInterface {
     return ProgressDialog(this).apply {
         setProgressStyle(ProgressDialog.STYLE_SPINNER)

@@ -159,4 +159,7 @@ class Bundlify {
     //endregion remove
 }
 
+/**
+ * Created a new instance of [Bundlify]
+ */
 inline fun bundle(bundle: Bundlify.() -> Unit) = Bundlify().apply(bundle).bundle

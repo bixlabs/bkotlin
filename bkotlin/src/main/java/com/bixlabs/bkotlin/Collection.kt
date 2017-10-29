@@ -90,12 +90,25 @@ fun <F, S> Pair<F, S>.toAndroidPair(): android.util.Pair<F, S> {
     return android.util.Pair(first, second)
 }
 
+/**
+ * True if this collection is null or empty, false otherwise
+ */
 fun <E> Collection<E>?.isNullOrEmpty(): Boolean = this == null || this.isEmpty()
 
+/**
+ * True if this collection is not null nor empty, false otherwise
+ */
 fun <E> Collection<E>?.isNotNullOrEmpty() = !isNullOrEmpty()
 
+/**
+ * True if this list is null or empty, false otherwise
+ */
 fun <E>List<E>?.isNullOrEmpty() = this == null || this.isEmpty()
 
+
+/**
+ * True if this collection is not null nor empty, false otherwise
+ */
 fun <E>List<E>?.isNotNullOrEmpty(): Boolean = !isNullOrEmpty()
 
 /**
@@ -127,6 +140,24 @@ operator fun <E>List<E>.div(amount: Int): HashMap<Int, kotlin.collections.List<E
     return map
 }
 
-infix fun <E> ArrayList<E>.addIfNotExist(obj: E) = if (!contains(obj)) add(obj) else false
+/**
+ * Adds [E] to this list if the same doesn't exist
+ */
+infix fun <E> ArrayList<E>.addIfNotExist(obj: E) = if (!this.contains(obj)) add(obj) else false
 
-infix fun <E> ArrayList<E>.removeIfExist(obj: E) = if (contains(obj)) remove(obj) else false
+/**
+ * Adds [E] to this list if the same doesn't previously exist.
+ * so
+ */
+infix fun <E> MutableList<E>.addIfNotExist(obj: E) = if (!this.contains(obj)) add(obj) else false
+
+
+/**
+ * Adds [E] to this map if the same doesn't exist
+ */
+fun <K, E> HashMap<K, E>.addIfNotExist(key: K, obj: E): E? = if (!this.containsKey(key)) put(key, obj) else { null }
+
+/**
+ * Adds [E] to this map if the same doesn't exist
+ */
+fun <K, E> MutableMap<K, E>.addIfNotExist(key: K, obj: E): E? = if (!this.containsKey(key)) put(key, obj) else { null }
