@@ -7,10 +7,7 @@ import android.graphics.MaskFilter
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.text.Layout
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.Spanned
+import android.text.*
 import android.text.style.*
 import android.view.View
 import java.util.*
@@ -129,9 +126,13 @@ open class Span {
     fun image(context: Context, uri: Uri, verticalAlignment: Int = DynamicDrawableSpan.ALIGN_BOTTOM, span: ImageSpan = ImageSpan(context, uri, verticalAlignment), init: Span.() -> Unit): Span = span(span, init)
     fun image(context: Context, resourceId: Int, verticalAlignment: Int = DynamicDrawableSpan.ALIGN_BOTTOM, span: ImageSpan = ImageSpan(context, resourceId, verticalAlignment), init: Span.() -> Unit): Span = span(span, init)
 
-    fun clickable(onClick: (ClickableSpan) -> Unit, span: ClickableSpan = object : ClickableSpan() {
+    fun clickable(onClick: (ClickableSpan) -> Unit, style: ((ds: TextPaint?) -> Unit)? = null, span: ClickableSpan = object : ClickableSpan() {
         override fun onClick(view: View?) {
             onClick(this)
+        }
+
+        override fun updateDrawState(ds: TextPaint?) {
+            if (style != null) style.invoke(ds) else super.updateDrawState(ds)
         }
     }, init: Span.() -> Unit): Span = span(span, init)
 
