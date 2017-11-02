@@ -2,6 +2,7 @@ package com.bixlabs.bkotlin
 
 import android.os.Bundle
 import android.os.Parcelable
+import java.io.Serializable
 
 /**
  * Let's you create bundles in a simple way and with operators. For example:
@@ -115,6 +116,10 @@ class Bundlify {
         bundle.putParcelableArrayList(key, value)
         return this
     }
+    fun put(key: String, value: Serializable): Bundlify {
+        bundle.putSerializable(key, value)
+        return this
+    }
 
 
     infix fun String.put(value: Any) {
@@ -134,8 +139,10 @@ class Bundlify {
             is Array<*> ->
                 put(this, value as Array<Parcelable>)
             is ArrayList<*> ->
-
                 put(this, value as ArrayList<Parcelable>)
+            is Serializable -> {
+                put(this, value)
+            }
         }
     }
 
