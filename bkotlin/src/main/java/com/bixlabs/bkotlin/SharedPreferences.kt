@@ -116,6 +116,13 @@ object GlobalSharedPreferences  {
     fun apply() = editor.apply()
 
     /**
+     * Mark in the editor to remove all values from the preferences.
+     *
+     * **Please note that this does not call commit neither apply**
+     */
+    fun clear(): SharedPreferences.Editor = editor.clear()
+
+    /**
      * @param returnIfInitialized object to be returned if class is initialized
      * @throws RuntimeException
      */
