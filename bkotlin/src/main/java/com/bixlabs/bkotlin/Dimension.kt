@@ -1,6 +1,9 @@
 package com.bixlabs.bkotlin
 
+import android.app.Activity
 import android.content.Context
+import android.support.v4.app.Fragment
+import android.util.DisplayMetrics
 
 /**
  * Converts dp to px
@@ -50,3 +53,30 @@ fun Context.px2dp(px: Int): Float = px.toFloat() / resources.displayMetrics.dens
  * @return calculated sp
  */
 fun Context.px2sp(px: Int): Float = px.toFloat() / resources.displayMetrics.scaledDensity
+
+
+/**
+ * Get the screen dimensions for the device in px
+ *
+ * @param[px] to convert
+ * @return calculated sp
+ */
+fun Activity.getDisplayMetrics(): DisplayMetrics {
+    val metrics = DisplayMetrics()
+    windowManager.defaultDisplay.getMetrics(metrics)
+
+    return metrics
+}
+
+/**
+ * Get the screen dimensions for the device in px
+ *
+ * @param[px] to convert
+ * @return calculated sp
+ */
+fun Fragment.getDisplayMetrics(): DisplayMetrics {
+    val metrics = DisplayMetrics()
+    activity.windowManager.defaultDisplay.getMetrics(metrics)
+
+    return metrics
+}
