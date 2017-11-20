@@ -69,6 +69,13 @@ fun Intent.noHistory(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_HISTOR
 fun Intent.singleTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) }
 
 /**
+ * Add the [Intent.FLAG_ACTIVITY_REORDER_TO_FRONT] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+fun Intent.reorderToFront(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT) }
+
+/**
  * Share text using the `Intent.createChooser` method
  */
 fun Context.shareText(text: String, subject: String = ""): Boolean = try {
