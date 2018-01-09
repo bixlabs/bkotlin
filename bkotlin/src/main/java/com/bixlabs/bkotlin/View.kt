@@ -1,5 +1,6 @@
 package com.bixlabs.bkotlin
 
+import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
@@ -7,7 +8,6 @@ import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewPropertyAnimator
 
 
 /**
@@ -73,19 +73,40 @@ fun View.toggleVisibility() {
 }
 
 /**
- * Fades in the View
+ * Fades in the View.
+ * @param duration The duration of the animation
+ * @param showIfInvisible If this view is invisible and this parameter is set to true the view will be first set to visible with an alpha of 0.0.
+ * @param listener An optional animator listener in case you want to perform operations during any part of the lifecycle of the animation
  */
-fun View.fadeIn(duration: Long = 400): ViewPropertyAnimator? = animate()
-        .alpha(1.0f)
-        .setDuration(duration)
+fun View.fadeIn(duration: Long = 400, showIfInvisible: Boolean = true, listener: Animator.AnimatorListener? = null) {
+    if (showIfInvisible && (this.isHidden() || this.isGone())) {
+        this.alpha = 0.0F
+        this.show()
+    }
 
+    val animation = animate().alpha(1.0f).setDuration(duration)
+    if (listener != null) animation.setListener(listener)
+
+    animation.start()
+}
 
 /**
- * Fades out the View
+ * Fades out the View.
+ * @param duration The duration of the animation
+ * @param showIfInvisible If this view is invisible and this parameter is set to true the view will be first set to visible with an alpha of 1.0.
+ * @param listener An optional animator listener in case you want to perform operations during any part of the lifecycle of the animation
  */
-fun View.fadeOut(duration: Long = 400): ViewPropertyAnimator? = animate()
-        .alpha(0.0f)
-        .setDuration(duration)
+fun View.fadeOut(duration: Long = 400, showIfInvisible: Boolean = true, listener: Animator.AnimatorListener? = null) {
+    if (showIfInvisible && (this.isHidden() || this.isGone())) {
+        this.alpha = 1.0F
+        this.show()
+    }
+
+    val animation = animate().alpha(0.0f).setDuration(duration)
+    if (listener != null) animation.setListener(listener)
+
+    animation.start()
+}
 
 /**
  * True if the view is currently visible (View.VISIBLE), false otherwise
