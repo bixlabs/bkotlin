@@ -1,4 +1,4 @@
-# BKotlin [ ![Download](https://api.bintray.com/packages/mradzinski/bixlabs/BKotlin/images/download.svg?version=1.3.0) ](https://bintray.com/mradzinski/bixlabs/BKotlin/1.3.0/link)
+# BKotlin [ ![Download](https://api.bintray.com/packages/mradzinski/bixlabs/BKotlin/images/download.svg) ](https://bintray.com/mradzinski/bixlabs/BKotlin/_latestVersion)
 
 Bixlabs Android Kotlin Extensions
 
