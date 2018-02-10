@@ -21,9 +21,9 @@ fun Activity.hideKeyboard() {
  * Hide the soft keyboard
  */
 fun Fragment.hideKeyboard() {
-    val view = this.activity.currentFocus
+    val view = this.activity?.currentFocus
     if (view != null) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

@@ -52,20 +52,25 @@ fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? {
  * Specifies a tint for drawable as a color state list.
  */
 fun Context.getDrawableSelectorCompat(@ColorRes normalColor: Int, @ColorRes pressedColor: Int,
-                                      @ColorRes disabledColor: Int, @DrawableRes res: Int): Drawable {
+                                      @ColorRes disabledColor: Int, @DrawableRes res: Int): Drawable? {
 
-    val drawable = DrawableCompat.wrap(ContextCompat.getDrawable(this, res)).mutate()
+    val contextCompatDawable = ContextCompat.getDrawable(this, res)
+    if (contextCompatDawable != null) {
+        val drawable = DrawableCompat.wrap(contextCompatDawable).mutate()
 
-    DrawableCompat.setTintList(drawable,
-            ColorStateList(
-                    arrayOf(intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_pressed),
-                            intArrayOf(android.R.attr.state_enabled, android.R.attr.state_pressed),
-                            intArrayOf(-android.R.attr.state_enabled)),
+        DrawableCompat.setTintList(drawable,
+                ColorStateList(
+                        arrayOf(intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_pressed),
+                                intArrayOf(android.R.attr.state_enabled, android.R.attr.state_pressed),
+                                intArrayOf(-android.R.attr.state_enabled)),
 
-                    intArrayOf(ContextCompat.getColor(this, normalColor),
-                            ContextCompat.getColor(this, pressedColor),
-                            ContextCompat.getColor(this, disabledColor))
-            ))
+                        intArrayOf(ContextCompat.getColor(this, normalColor),
+                                ContextCompat.getColor(this, pressedColor),
+                                ContextCompat.getColor(this, disabledColor))
+                ))
 
-    return drawable
+        return drawable
+    } else {
+        return null
+    }
 }

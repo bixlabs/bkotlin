@@ -2,48 +2,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka-android'
 
-ext {
-    bintrayRepo = 'bixlabs'
-    bintrayName = 'BKotlin'
-
-    publishedGroupId = 'com.bixlabs.bkotlin'
-    libraryName = 'BKotlin'
-    artifact = 'bkotlin'
-
-    libraryDescription = 'Bixlabs Kotlin Extensions'
-
-    siteUrl = 'https://www.bixlabs.com'
-    gitUrl = 'https://github.com/bixlabs/bkotlin.git'
-
-    libraryVersion = '1.0.0'
-
-    developerId = 'mradzinski'
-    developerName = 'Matias Radzinski'
-    developerEmail = 'matias@bixlabs.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     outputFormat = 'javadoc'
     outputDirectory = "$buildDir/javadoc"
 }
 
-//task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-//    classifier = 'javadoc'
-//    from "$buildDir/javadoc"
-//}
-
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
-
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
 
@@ -64,7 +33,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compileOnly 'com.android.support:appcompat-v7:26.1.0'
+    compileOnly 'com.android.support:appcompat-v7:27.0.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {

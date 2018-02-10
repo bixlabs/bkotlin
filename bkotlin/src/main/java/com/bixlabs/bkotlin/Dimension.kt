@@ -76,7 +76,7 @@ fun Activity.getDisplayMetrics(): DisplayMetrics {
  */
 fun Fragment.getDisplayMetrics(): DisplayMetrics {
     val metrics = DisplayMetrics()
-    activity.windowManager.defaultDisplay.getMetrics(metrics)
+    activity?.windowManager?.defaultDisplay?.getMetrics(metrics)
 
     return metrics
 }
