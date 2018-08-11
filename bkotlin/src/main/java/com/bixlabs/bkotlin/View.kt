@@ -9,6 +9,27 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 
+class ShowHideIfBuilder (private val view: View, private val condition: Boolean) {
+    fun elseShow(): ShowHideIfBuilder {
+        if (!condition) view.show()
+        return this
+    }
+    
+    fun elseHide(): ShowHideIfBuilder {
+        if (!condition) view.hide()
+        return this
+    }
+    
+    fun elseGone(): ShowHideIfBuilder {
+        if (!condition) view.gone()
+        return this
+    }
+    
+    inline fun andThen(block: () -> Unit): ShowHideIfBuilder {
+        block.invoke()
+        return this
+    }
+}
 
 /**
  * Gives focus to the passed view once the view has been completely inflated
@@ -167,6 +188,33 @@ fun View.locateInScreen(): Rect? {
         right = left + this@locateInScreen.width
         bottom = top + this@locateInScreen.height
     }
+}
+
+/**
+ * Show this view if the received condition becomes true
+ * @return a [ShowHideIfBuilder] instance allowing composition through.
+ */
+fun View.showIf(condition: Boolean): ShowHideIfBuilder {
+    if (condition) this.show()
+    return ShowHideIfBuilder(this, condition)
+}
+
+/**
+ * Hide this view if the received condition becomes true
+ * @return a [ShowHideIfBuilder] instance allowing composition through.
+ */
+fun View.hideIf(condition: Boolean): ShowHideIfBuilder {
+    if (condition) this.hide()
+    return ShowHideIfBuilder(this, condition)
+}
+
+/**
+ * Gone this view if the received condition becomes true
+ * @return a [ShowHideIfBuilder] instance allowing composition through.
+ */
+fun View.goneIf(condition: Boolean): ShowHideIfBuilder {
+    if (condition) this.gone()
+    return ShowHideIfBuilder(this, condition)
 }
 
 /* ********************************************
