@@ -5,11 +5,11 @@ import android.os.Parcelable
 import java.io.Serializable
 
 /**
- * Let's you create bundles in a simple way and with operators. For example:
+ * Let's you create or reuse bundles in a simple way and with operators. For example:
  *
  * ```
  * val bundle = bundle {
- *       // put key(String), value(Any)
+ *       "key".put("value")
  *
  *       // String
  *       put("key", "value")
@@ -32,6 +32,7 @@ import java.io.Serializable
  *       // parcelable arrayList
  *       put("key", ArrayList<Parcelable>()) // Some parcelable ArrayList
  *
+ *       // put operators
  *       "key" += 5
  *       this += "keyPair" to 6L
  *
@@ -39,14 +40,23 @@ import java.io.Serializable
  *       remove("keyToRemove")
  *
  *       this - ""
+ *
+ *       // Get a key in a bundle
+ *       contains("key")
+ *
+ *       "key" in this
  * }
  *
- * "key" in bundle
+ * // Reuse a bundle
+ * val bundle = bundle(originalBundle) {
+ *       put("key", "value")
+ * }
+ *
  * ```
  */
-@Suppress("unused")
-class Bundlify {
-    var bundle = Bundle()
+@Suppress("unused", "MemberVisibilityCanBePrivate")
+class Bundlify(ofBundle: Bundle? = null) {
+    var bundle = ofBundle ?: Bundle()
 
     //region get
     fun getAll() = bundle
@@ -69,6 +79,7 @@ class Bundlify {
 
     fun <T: Parcelable> String.getParcelable(): T = bundle.getParcelable(this)
 
+    @Suppress("UNCHECKED_CAST")
     fun <T: Parcelable> String.getParcelableArray() = bundle.getParcelableArray(this) as Array<T>
 
     fun <T: Parcelable> String.getParcelableArrayList(): ArrayList<T> =
@@ -122,6 +133,7 @@ class Bundlify {
     }
 
 
+    @Suppress("UNCHECKED_CAST")
     infix fun String.put(value: Any) {
         when(value) {
             is String ->
@@ -170,3 +182,10 @@ class Bundlify {
  * Created a new instance of [Bundlify]
  */
 inline fun bundle(bundle: Bundlify.() -> Unit) = Bundlify().apply(bundle).bundle
+
+/**
+ * Creates a new instance of [Bundlify] reusing an already existent [Bundle]
+ *
+ * @param ofBundle Original [Bundle] to reuse
+ */
+inline fun bundle(ofBundle: Bundle, bundle: Bundlify.() -> Unit) = Bundlify(ofBundle).apply(bundle).bundle
