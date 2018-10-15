@@ -61,7 +61,7 @@ publishing {
 }
 
 afterEvaluate {
-    publishing.publications.mavenKotlin.artifact(bundleRelease)
+    publishing.publications.mavenKotlin.artifact(bundleReleaseAar)
 }
 
 bintray {
