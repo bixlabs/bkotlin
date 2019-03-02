@@ -29,3 +29,8 @@ inline fun Any?.isNullThen(callback: () -> Unit) = if (this == null) {
 inline fun <T> T?.isNotNullThen(callback: (T) -> Unit) = if (this != null) {
     callback.invoke(this)
 } else {}
+
+/**
+ * Converts this to [Unit]
+ */
+fun Any.toUnit() = Unit
