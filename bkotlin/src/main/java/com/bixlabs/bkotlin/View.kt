@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Handler
+import android.support.annotation.Px
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -172,6 +173,7 @@ fun <T : View> T.applyRecursively(f: (View) -> Unit): T {
 
 /**
  * Locates this view on screen if the same is [View.VISIBLE]
+ * @return The position of this view on screen if the same is [View.VISIBLE]
  */
 fun View.locateInScreen(): Rect? {
     val loc_int = IntArray(2)
@@ -216,6 +218,68 @@ fun View.goneIf(condition: Boolean): ShowHideIfBuilder {
     if (condition) this.gone()
     return ShowHideIfBuilder(this, condition)
 }
+
+/**
+ * Resize this view to the provided height, keeping its width intact.
+ * @param value The desired final height for this view in pixels
+ */
+fun View.resizeHeight(@Px value: Int) {
+    val lp = layoutParams
+    lp?.let {
+        lp.height = value
+        layoutParams = lp
+    }
+}
+
+/**
+ * Resize this view to the provided width, keeping its height intact.
+ * @param value The desired final width for this view in pixels
+ */
+fun View.resizeWidth(@Px value: Int) {
+    val lp = layoutParams
+    lp?.let {
+        lp.width = value
+        layoutParams = lp
+    }
+}
+
+/**
+ * Resize this view.
+ * @param width The desired final width for this view in pixels
+ * @param height The desired final height for this view in pixels
+ */
+fun View.resize(@Px width: Int, @Px height: Int) {
+    val lp = layoutParams
+    lp?.let {
+        lp.width = width
+        lp.height = height
+        layoutParams = lp
+    }
+}
+
+/**
+ * Sets the relative top padding for this view in pixels.
+ * @param value The top padding in pixels
+ */
+fun View.setPaddingTop(@Px value: Int) = setPaddingRelative(paddingStart, value, paddingEnd, paddingBottom)
+
+/**
+ * Sets the relative bottom padding for this view in pixels.
+ * @param value The bottom padding in pixels
+ */
+fun View.setPaddingBottom(@Px value: Int) = setPaddingRelative(paddingStart, paddingTop, paddingEnd, value)
+
+/**
+ * Sets the relative start padding for this view in pixels.
+ * @param value The start padding in pixels
+ */
+fun View.setPaddingStart(@Px value: Int) = setPaddingRelative(value, paddingTop, paddingEnd, paddingBottom)
+
+/**
+ * Sets the relative end padding for this view in pixels.
+ * @param value The end padding in pixels
+ */
+fun View.setPaddingEnd(@Px value: Int) = setPaddingRelative(paddingStart, paddingTop, value, paddingBottom)
 
 /* ********************************************
  *               Private methods              *
