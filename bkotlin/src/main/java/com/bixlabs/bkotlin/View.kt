@@ -6,9 +6,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.os.Handler
-import android.support.annotation.Px
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewCompat
+import androidx.annotation.Px
+import androidx.fragment.app.Fragment
+import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 
@@ -45,7 +45,7 @@ fun Activity.setFocusToView(view: View) {
 /**
  * Gives focus to the passed view once the view has been completely inflated
  */
-fun Fragment.setFocusToView(view: View) {
+fun androidx.fragment.app.Fragment.setFocusToView(view: View) {
     val handler = Handler(this.activity?.mainLooper)
     handler.post { view.requestFocus() }
 }
@@ -63,7 +63,7 @@ fun Activity.setTouchFocusToView(view: View) {
  * Gives focus to the passed view once the view has been completely
  * inflated using `view.requestFocusFromTouch`
  */
-fun Fragment.setTouchFocusToView(view: View) {
+fun androidx.fragment.app.Fragment.setTouchFocusToView(view: View) {
     val handler = Handler(this.activity?.mainLooper)
     handler.post { view.requestFocusFromTouch() }
 }

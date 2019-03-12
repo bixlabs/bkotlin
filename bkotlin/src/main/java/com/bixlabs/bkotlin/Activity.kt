@@ -1,7 +1,7 @@
 package com.bixlabs.bkotlin
 
 import android.app.Activity
-import android.support.annotation.UiThread
+import androidx.annotation.UiThread
 import android.view.WindowManager
 
 

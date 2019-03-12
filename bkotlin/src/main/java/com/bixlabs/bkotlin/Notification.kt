@@ -2,7 +2,7 @@ package com.bixlabs.bkotlin
 
 import android.app.Notification
 import android.content.Context
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 
 /**
  * Helper method to ease displaying system notifications.

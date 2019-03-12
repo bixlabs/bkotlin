@@ -2,7 +2,7 @@ package com.bixlabs.bkotlin
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.DisplayMetrics
 
 /**
@@ -74,7 +74,7 @@ fun Activity.getDisplayMetrics(): DisplayMetrics {
  * @param[px] to convert
  * @return calculated sp
  */
-fun Fragment.getDisplayMetrics(): DisplayMetrics {
+fun androidx.fragment.app.Fragment.getDisplayMetrics(): DisplayMetrics {
     val metrics = DisplayMetrics()
     activity?.windowManager?.defaultDisplay?.getMetrics(metrics)
 

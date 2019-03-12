@@ -16,7 +16,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.bixlabs.bkotlin.EMPTY
 import java.text.SimpleDateFormat
 import java.util.*
