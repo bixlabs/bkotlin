@@ -33,4 +33,4 @@ inline fun <T> T?.isNotNullThen(callback: (T) -> Unit) = if (this != null) {
 /**
  * Converts this to [Unit]
  */
-fun Any.toUnit() = Unit
+fun Any?.toUnit() = Unit
