@@ -3,10 +3,12 @@ package com.bixlabs.bkotlin
 import android.animation.Animator
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Rect
 import android.os.Handler
 import android.support.annotation.Px
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 
@@ -280,6 +282,31 @@ fun View.setPaddingStart(@Px value: Int) = setPaddingRelative(value, paddingTop,
  * @param value The end padding in pixels
  */
 fun View.setPaddingEnd(@Px value: Int) = setPaddingRelative(paddingStart, paddingTop, value, paddingBottom)
+
+/**
+ * Return a [Bitmap] representation of this [View].
+ *
+ * The resulting bitmap will be the same width and height as this view's current layout
+ * dimensions. This does not take into account any transformations such as scale or translation.
+ *
+ * Note, this will use the software rendering pipeline to draw the view to the bitmap. This may
+ * result with different drawing to what is rendered on a hardware accelerated canvas (such as
+ * the device screen).
+ *
+ * If this view has not been laid out this method will throw a [IllegalStateException].
+ *
+ * @param config Bitmap config of the desired bitmap. Defaults to [Bitmap.Config.ARGB_8888].
+ */
+fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
+    if (!ViewCompat.isLaidOut(this)) {
+        throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
+    }
+    return Bitmap.createBitmap(width, height, config).applyCanvas {
+        translate(-scrollX.toFloat(), -scrollY.toFloat())
+        draw(this)
+    }
+}
+
 
 /* ********************************************
  *               Private methods              *
