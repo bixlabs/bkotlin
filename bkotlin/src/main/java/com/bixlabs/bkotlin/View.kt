@@ -3,14 +3,14 @@ package com.bixlabs.bkotlin
 import android.animation.Animator
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.os.Handler
-import androidx.annotation.Px
-import androidx.fragment.app.Fragment
-import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Px
+import androidx.core.view.ViewCompat
 
 class ShowHideIfBuilder (private val view: View, private val condition: Boolean) {
     fun elseShow(): ShowHideIfBuilder {
@@ -305,6 +305,21 @@ fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
         translate(-scrollX.toFloat(), -scrollY.toFloat())
         draw(this)
     }
+}
+
+/**
+ * Gets the [Activity] this [View] is attached to.
+ * @return The [Activity] this [View] is attached to. If this view isn't attached to an [Activity] then returns null.
+ */
+fun View.getActivity(): Activity? {
+    var ctx = context
+
+    while (ctx is ContextWrapper) {
+        if (ctx is Activity) return ctx
+        ctx = ctx.baseContext
+    }
+
+    return null
 }
 
 
