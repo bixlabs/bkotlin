@@ -3,6 +3,7 @@ package com.bixlabs.bkotlin
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.ColorRes
 
@@ -50,3 +51,21 @@ fun Context.getColorCompat(@ColorRes color: Int, theme: Resources.Theme? = null)
 
     return c
 }
+
+/**
+ * Get a brighter (luma) version of this [Color]
+ */
+fun Int.getLuma(): Double =
+        0.299 * Color.red(this) + 0.587 * Color.green(this) + 0.114 * Color.blue(this)
+
+/**
+ * Get a darker version of this [Color]
+ */
+fun Int.getDarker(alpha: Float): Int =
+        Color.rgb((Color.red(this) * alpha).toInt(), (Color.green(this) * alpha).toInt(),
+            (Color.blue(this) * alpha).toInt())
+
+/**
+ * Convert this color to a HEX [String]
+ */
+fun Int.toHexString(): String = String.format("#%06X", 0xFFFFFF and this)
